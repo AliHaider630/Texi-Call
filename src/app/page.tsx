@@ -1,11 +1,7 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
-
-export const metadata: Metadata = {
-  title: 'Barcelona Premium Transfers | Airport & Intercity Transfers',
-  description: 'Book your premium transfer from Barcelona Airport to the city, or intercity routes to Girona, Valencia, Andorra, Sitges, Tarragona & Costa Brava. 24/7 service.',
-}
 
 const FLEET = [
   { id: 'economy_sedan', name: 'Economy Sedan', desc: 'Comfortable & affordable', passengers: 4, luggage: 2, features: ['A/C', 'WiFi', 'Water'], price: 'From €35', emoji: '🚗' },
