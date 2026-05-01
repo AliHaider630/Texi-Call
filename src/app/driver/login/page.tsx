@@ -1,0 +1,69 @@
+'use client'
+import { useState, Suspense } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
+import Navbar from '@/components/Navbar'
+import toast from 'react-hot-toast'
+
+function DriverLoginForm() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+    const res = await signIn('driver-login', { email, password, redirect: false })
+    if (res?.ok) {
+      toast.success('Welcome back, driver!')
+      router.push('/driver/dashboard')
+    } else {
+      toast.error('Invalid credentials or account not approved yet')
+    }
+    setLoading(false)
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#050505', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '100px 24px 40px' }}>
+      <Navbar />
+      <div style={{ width: '100%', maxWidth: '420px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🚗</div>
+          <div style={{ color: '#c9a84c', fontFamily: 'Cormorant Garamond', fontSize: '32px', fontWeight: '700', marginBottom: '8px' }}>Driver Portal</div>
+          <p style={{ color: '#666' }}>Sign in to your driver account</p>
+        </div>
+        <form onSubmit={handleSubmit} style={{ background: '#0e0e0e', border: '1px solid #1e1e1e', padding: '40px', position: 'relative' }}>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #c9a84c, #f0d080, transparent)' }} />
+          <div style={{ marginBottom: '20px' }}>
+            <label>Email Address</label>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="driver@email.com" required />
+          </div>
+          <div style={{ marginBottom: '32px' }}>
+            <label>Password</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
+          </div>
+          <button type="submit" disabled={loading} className="btn-gold" style={{ width: '100%', opacity: loading ? 0.7 : 1 }}>
+            {loading ? 'Signing in...' : 'Sign In as Driver'}
+          </button>
+          <div style={{ marginTop: '24px', padding: '16px', background: 'rgba(201,168,76,0.05)', border: '1px solid rgba(201,168,76,0.15)' }}>
+            <p style={{ color: '#888', fontSize: '13px', textAlign: 'center' }}>
+              Account pending? Admin reviews applications within 24h.
+            </p>
+          </div>
+          <p style={{ textAlign: 'center', marginTop: '20px', color: '#666', fontSize: '14px' }}>
+            New driver? <Link href="/driver/register" style={{ color: '#c9a84c' }}>Apply here</Link>
+          </p>
+          <p style={{ textAlign: 'center', marginTop: '8px' }}>
+            <Link href="/login" style={{ color: '#555', fontSize: '13px' }}>← Customer login</Link>
+          </p>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default function DriverLoginPage() {
+  return <Suspense><DriverLoginForm /></Suspense>
+}
