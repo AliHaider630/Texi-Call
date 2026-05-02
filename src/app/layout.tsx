@@ -5,10 +5,10 @@ import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Barcelona Premium Transfers | Airport & Intercity Transfers',
+    default: 'Barcelona Premium Transfers | Airport, City & Intercity Transfers',
     template: '%s | Barcelona Premium Transfers'
   },
-  description: 'Book your premium transfer from Barcelona Airport to the city, or intercity routes to Girona, Valencia, Andorra, Sitges, Tarragona & Costa Brava. 24/7 service.',
+  description: 'Premium airport transfers, city transfers and intercity transfers in Barcelona. Professional drivers, luxury fleet. Barcelona to Girona, Valencia, Andorra, Sitges, Tarragona, Costa Brava.',
   keywords: [
     'Barcelona airport transfer', 'Barcelona taxi', 'BCN airport transfer',
     'Barcelona to Girona transfer', 'Barcelona to Valencia transfer',
